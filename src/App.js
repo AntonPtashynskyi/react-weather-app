@@ -1,7 +1,15 @@
 import "./App.css";
+import { ResultList, SearchLocation } from "./components/index";
 
 function App() {
-  return <div className="App"></div>;
+  // weatherApi();
+
+  return (
+    <div className="wrapper">
+      <SearchLocation />
+      <ResultList />
+    </div>
+  );
 }
 
 export default App;
