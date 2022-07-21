@@ -1,11 +1,9 @@
 import { useState } from "react";
+import { useDebounce } from "../hooks/debounce";
 
 export const SearchLocation = () => {
-  const [city, setCity] = useState("");
-
-  const onChange = (e) => {
-    setCity(e.currentTarget.value);
-  };
+  const [search, setSearch] = useState("");
+  const debouncedValue = useDebounce(search, 300);
 
   return (
     <div>
@@ -14,9 +12,11 @@ export const SearchLocation = () => {
         <input
           type="text"
           placeholder="type name of the city..."
-          onChange={onChange}
+          value={search}
+          onChange={(e) => setSearch(e.currentTarget.value)}
         />
       </label>
+      <div></div>
     </div>
   );
 };
