@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 import { useDebounce } from "../../hooks/debounce";
 import { fetchGeocoding } from "../../weatherApi/weatherApi";
@@ -19,6 +20,14 @@ export const SearchLocation = ({ setSavedLocation }) => {
 
     const fetchData = async () => {
       const data = await fetchGeocoding(debouncedValue);
+
+      if (data.length === 0) {
+        console.log(data);
+        toast.error("We cant find this city", {
+          duration: 1500,
+          icon: "😥",
+        });
+      }
       setCities(data);
     };
 
