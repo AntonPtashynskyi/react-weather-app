@@ -1,9 +1,13 @@
 import { useEffect } from "react";
 import { nanoid } from "nanoid";
 
-export const ResultList = ({ cities, search, setCities }) => {
-  const handleCityClick = (city) => {
-    console.log(city.lat, city.lon);
+import { fetchCurrentForecast } from "../weatherApi/weatherApi";
+
+export const ResultList = ({ cities, search, setCities, setSavedLocation }) => {
+  const handleCityClick = async (city) => {
+    const response = await fetchCurrentForecast(city.lat, city.lon);
+    setSavedLocation((prevState) => [...prevState, response]);
+    setCities([]);
   };
 
   useEffect(() => {

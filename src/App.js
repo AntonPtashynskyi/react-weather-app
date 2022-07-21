@@ -1,10 +1,15 @@
+import { useState } from "react";
+
 import "./App.css";
-import { SearchLocation } from "./components/index";
+import { SearchLocation, SavedCities } from "./components/index";
 
 function App() {
+  const [savedLocation, setSavedLocation] = useState([]);
+
   return (
     <div className="wrapper">
-      <SearchLocation />
+      <SearchLocation setSavedLocation={setSavedLocation} />
+      <SavedCities savedLocation={savedLocation} />
     </div>
   );
 }

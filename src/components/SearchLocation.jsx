@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDebounce } from "../hooks/debounce";
 
-import { geocodingApi } from "../weatherApi/weatherApi";
-import { ResultList } from "./ResultList";
+import { fetchGeocoding } from "../weatherApi/weatherApi";
+import { ResultList } from "./index";
 
-export const SearchLocation = () => {
+export const SearchLocation = ({ setSavedLocation }) => {
   const [search, setSearch] = useState("");
   const [cities, setCities] = useState([]);
   const debouncedValue = useDebounce(search, 300);
@@ -19,7 +19,7 @@ export const SearchLocation = () => {
     }
 
     const fetchData = async () => {
-      const data = await geocodingApi(debouncedValue);
+      const data = await fetchGeocoding(debouncedValue);
       setCities(data);
     };
 
@@ -37,7 +37,12 @@ export const SearchLocation = () => {
           onChange={handleChange}
         />
       </label>
-      <ResultList cities={cities} search={search} setCities={setCities} />
+      <ResultList
+        cities={cities}
+        search={search}
+        setCities={setCities}
+        setSavedLocation={setSavedLocation}
+      />
     </div>
   );
 };
