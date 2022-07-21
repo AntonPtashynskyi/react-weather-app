@@ -1,22 +1,37 @@
+import { BsFillTrashFill } from "react-icons/bs";
+
 import "./savedCities.syle.css";
 import { getCurrentDate } from "../../utilits/getCurretnDate";
 
-export const SavedCities = ({ savedLocation }) => {
+export const SavedCities = ({ savedLocation, setSavedLocation }) => {
   const date = getCurrentDate("-");
+
+  const handleDelete = (id) => {
+    setSavedLocation((prevSate) => prevSate.filter((item) => item.id !== id));
+  };
 
   return (
     <div className="savedCitiesContainer">
-      <h1>Saved cities</h1>
-      <ul className="savedCitiesList">
-        {savedLocation &&
-          savedLocation.map((location) => (
+      <h2>Saved cities</h2>
+      {savedLocation.length ? (
+        <ul className="savedCitiesList">
+          {savedLocation.map((location) => (
             <li key={location.id} className="savedCities">
+              <span
+                className="deleteIcon"
+                onClick={() => handleDelete(location.id)}
+              >
+                <BsFillTrashFill />
+              </span>
               <p className="locationName">{location.name}</p>
               <p>{date}</p>
               <p className="temperature">{location.main.temp} (st C)</p>
             </li>
           ))}
-      </ul>
+        </ul>
+      ) : (
+        <p> There is no added cities yet </p>
+      )}
     </div>
   );
 };

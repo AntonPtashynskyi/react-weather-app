@@ -30,6 +30,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: relative;
 
   border-radius: 5px;
   color: white;
@@ -59,4 +60,32 @@
 .temperature:last-of-type {
   margin-top: 10px;
   font-size: 20px;
+}
+
+.deleteIcon {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+
+  background-color: rgb(231, 28, 28);
+  box-shadow: 12px 14px 15px -14px rgba(66, 68, 90, 1);
+
+  opacity: 0;
+  transition: all 250ms linear;
+}
+
+.savedCities:hover .deleteIcon {
+  opacity: 1;
+  font-size: 16px;
+
+  color: #fff;
+  cursor: pointer;
 }

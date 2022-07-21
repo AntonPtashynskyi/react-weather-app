@@ -10,7 +10,10 @@ function App() {
   return (
     <div className="wrapper">
       <SearchLocation setSavedLocation={setSavedLocation} />
-      <SavedCities savedLocation={savedLocation} />
+      <SavedCities
+        savedLocation={savedLocation}
+        setSavedLocation={setSavedLocation}
+      />
       <Toaster />
     </div>
   );
