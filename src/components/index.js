@@ -1,3 +1,3 @@
-export * from "./ResultList";
-export * from "./SearchLocation";
-export * from "./SavedCities";
+export * from "./ResultList/ResultList";
+export * from "./SearchLocation/SearchLocation";
+export * from "./SavedCities/SavedCities";

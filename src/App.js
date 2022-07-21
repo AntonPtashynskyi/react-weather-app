@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 import "./App.css";
 import { SearchLocation, SavedCities } from "./components/index";
@@ -10,6 +11,7 @@ function App() {
     <div className="wrapper">
       <SearchLocation setSavedLocation={setSavedLocation} />
       <SavedCities savedLocation={savedLocation} />
+      <Toaster />
     </div>
   );
 }

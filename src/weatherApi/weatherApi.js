@@ -7,7 +7,7 @@ export const fetchGeocoding = async (city) => {
   )
     .then((res) => res.json())
     .then((data) => data)
-    .catch((error) => console.log(error));
+    .catch((error) => error);
 };
 
 export const fetchCurrentForecast = async (lat, lon) => {

@@ -1,0 +1,35 @@
+.searchContainer {
+  margin-bottom: 80px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 20px;
+  border-radius: 20px;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.inputWrapper label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.input {
+  width: 300px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+
+  height: 40px;
+  border: 2px solid #96aef8;
+}
