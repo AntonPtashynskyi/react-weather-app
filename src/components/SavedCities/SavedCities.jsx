@@ -1,7 +1,7 @@
 import { BsFillTrashFill } from "react-icons/bs";
 
-import "./savedCities.syle.css";
-import { getCurrentDate } from "../../utilits/getCurretnDate";
+import "./savedCities.style.css";
+import { getCurrentDate } from "../../utilities/getCurrentDate";
 
 export const SavedCities = ({ savedLocation, setSavedLocation }) => {
   const date = getCurrentDate("-");
