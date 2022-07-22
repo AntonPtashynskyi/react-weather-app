@@ -9,10 +9,13 @@ import "./searchLocation.style.css";
 export const SearchLocation = ({ setSavedLocation }) => {
   const [search, setSearch] = useState("");
   const [cities, setCities] = useState([]);
+  const [dropdown, setDropdown] = useState(false);
   const debouncedValue = useDebounce(search, 300);
 
   const handleChange = (e) => {
-    setSearch(e.currentTarget.value);
+    const value = e.currentTarget.value;
+
+    setSearch(value.toLowerCase());
   };
 
   useEffect(() => {
@@ -21,10 +24,13 @@ export const SearchLocation = ({ setSavedLocation }) => {
     const fetchData = async () => {
       const data = await fetchGeocoding(debouncedValue);
 
+      setDropdown(debouncedValue.length > 2 && data?.length > 0);
+
       if (data.length === 0) {
         console.log(data);
         toast.error("We cant find this city", {
           duration: 1500,
+          position: "top-right",
           icon: "😥",
         });
       }
@@ -46,14 +52,17 @@ export const SearchLocation = ({ setSavedLocation }) => {
           value={search}
           autoComplete="false"
           onChange={handleChange}
+          onFocus={() => setDropdown(true)}
         />
-        {cities.length > 0 && (
+        {dropdown && (
           <ResultList
             cities={cities}
             search={search}
             setCities={setCities}
             setSearch={setSearch}
             setSavedLocation={setSavedLocation}
+            dropdown={dropdown}
+            setDropdown={setDropdown}
           />
         )}
       </div>

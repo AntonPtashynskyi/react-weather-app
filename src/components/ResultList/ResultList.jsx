@@ -8,6 +8,7 @@ export const ResultList = ({
   setCities,
   setSavedLocation,
   setSearch,
+  dropdown,
 }) => {
   const handleCityClick = async (city) => {
     const response = await fetchCurrentForecast(city.lat, city.lon);
@@ -17,19 +18,23 @@ export const ResultList = ({
   };
 
   return (
-    <ul className="resultList">
-      {cities?.map((city) => (
-        <li
-          className="resultItem"
-          key={nanoid()}
-          onClick={() => handleCityClick(city)}
-        >
-          <p className="cityName">{city.name}</p>
-          {city?.state && <p>({city?.state})</p>}
-          <p>{city.country}</p>
-          <span className="hide">Click to add</span>
-        </li>
-      ))}
-    </ul>
+    <>
+      {dropdown && (
+        <ul className="resultList">
+          {cities?.map((city) => (
+            <li
+              className="resultItem"
+              key={nanoid()}
+              onClick={() => handleCityClick(city)}
+            >
+              <p className="cityName">{city.name}</p>
+              {city?.state && <p>({city?.state})</p>}
+              <p>{city.country}</p>
+              <span className="hide">Click to add</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
   );
 };

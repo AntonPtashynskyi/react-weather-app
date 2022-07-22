@@ -1,5 +1,5 @@
 .savedCitiesContainer {
-  width: 700px;
+  width: 280px;
   padding: 20px 20px;
 
   margin-left: auto;
@@ -15,15 +15,10 @@
 .savedCitiesList {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
 
   padding: 20px;
   border-radius: 5px;
-}
-
-.savedCitiesList::after {
-  content: "";
-  flex-grow: 100000000;
 }
 
 .savedCities {
@@ -39,13 +34,9 @@
   width: 137px;
   height: 80px;
   padding: 10px;
-  margin-right: 10px;
+
   margin-bottom: 10px;
   transition: all 250ms linear;
-}
-
-.savedCities:nth-child(4n) {
-  margin-right: 0;
 }
 
 .locationName {
@@ -88,4 +79,23 @@
 
   color: #fff;
   cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .savedCitiesContainer {
+    width: 700px;
+  }
+
+  .savedCitiesList::after {
+    content: "";
+    flex-grow: 100000000;
+  }
+
+  .savedCities:nth-child(4n) {
+    margin-right: 0;
+  }
+
+  .savedCities {
+    margin-right: 10px;
+  }
 }
