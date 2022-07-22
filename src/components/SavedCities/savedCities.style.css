@@ -1,6 +1,7 @@
 .savedCitiesContainer {
   width: 280px;
   padding: 20px 20px;
+  box-sizing: border-box;
 
   margin-left: auto;
   margin-right: auto;
