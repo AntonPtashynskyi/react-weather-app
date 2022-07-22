@@ -24,7 +24,7 @@ export const SearchLocation = ({ setSavedLocation }) => {
     const fetchData = async () => {
       const data = await fetchGeocoding(debouncedValue);
 
-      setDropdown(debouncedValue.length > 2 && data?.length > 0);
+      setDropdown(debouncedValue.length > 1 && data?.length > 0);
 
       if (data.length === 0) {
         console.log(data);
