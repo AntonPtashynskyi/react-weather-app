@@ -19,22 +19,36 @@ export const SearchLocation = ({ setSavedLocation }) => {
   };
 
   useEffect(() => {
-    if (debouncedValue.length < 1) return;
+    if (debouncedValue.length < 2) {
+      setDropdown(false);
+      setCities([]);
+      return;
+    }
 
     const fetchData = async () => {
-      const data = await fetchGeocoding(debouncedValue);
+      try {
+        const data = await fetchGeocoding(debouncedValue);
 
-      setDropdown(debouncedValue.length > 1 && data?.length > 0);
+        if (!data) {
+          throw new Error("Something went wrong");
+        }
 
-      if (data.length === 0) {
-        console.log(data);
-        toast.error("We cant find this city", {
-          duration: 1500,
-          position: "top-right",
-          icon: "😥",
+        if (data?.length === 0) {
+          toast.error("We cant find this city", {
+            duration: 1500,
+            position: "top-right",
+            icon: "😥",
+          });
+        }
+
+        setDropdown(debouncedValue.length > 1 && data?.length > 0);
+        setCities(data);
+      } catch (error) {
+        toast(error.message, {
+          duration: 2000,
+          icon: "😟",
         });
       }
-      setCities(data);
     };
 
     fetchData();
@@ -48,9 +62,9 @@ export const SearchLocation = ({ setSavedLocation }) => {
           className="input"
           id="search"
           type="text"
-          placeholder="type name of the city..."
+          placeholder="type name of the city.. (at least 2 letters)"
           value={search}
-          autoComplete="false"
+          autoComplete="off"
           onChange={handleChange}
           onFocus={() => setDropdown(true)}
         />

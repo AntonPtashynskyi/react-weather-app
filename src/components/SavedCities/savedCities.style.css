@@ -32,7 +32,7 @@
   color: white;
 
   background-color: #5983fc;
-  width: 137px;
+  width: 127px;
   height: 80px;
   padding: 10px;
 
@@ -85,6 +85,10 @@
 @media screen and (min-width: 768px) {
   .savedCitiesContainer {
     width: 700px;
+  }
+
+  .savedCitiesList {
+    justify-content: flex-start;
   }
 
   .savedCitiesList::after {

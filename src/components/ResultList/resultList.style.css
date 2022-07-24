@@ -6,6 +6,7 @@
   max-height: 200px;
   background-color: white;
   box-shadow: 12px 14px 15px -14px rgba(66, 68, 90, 1);
+  z-index: 299;
 }
 
 .resultItem {

@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import toast from "react-hot-toast";
 
 import "./resultList.style.css";
 import { fetchCurrentForecast } from "../../weatherApi/weatherApi";
@@ -11,10 +12,19 @@ export const ResultList = ({
   dropdown,
 }) => {
   const handleCityClick = async (city) => {
-    const response = await fetchCurrentForecast(city.lat, city.lon);
-    setSavedLocation((prevState) => [...prevState, response]);
-    setSearch("");
-    setCities([]);
+    try {
+      const response = await fetchCurrentForecast(city.name);
+
+      if (!response) {
+        throw new Error("Ups!!!");
+      }
+
+      setSavedLocation((prevState) => [...prevState, response]);
+      setSearch("");
+      setCities([]);
+    } catch (error) {
+      toast(error.message);
+    }
   };
 
   return (

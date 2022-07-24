@@ -1,6 +1,6 @@
 .searchContainer {
   margin-bottom: 80px;
-  /* max-width: 700px; */
+
   width: 280px;
   box-sizing: border-box;
   margin-left: auto;
@@ -32,5 +32,6 @@
   box-sizing: border-box;
 
   height: 40px;
+  border-radius: 10px;
   border: 2px solid #96aef8;
 }

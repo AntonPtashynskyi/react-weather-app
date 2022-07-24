@@ -5,16 +5,28 @@ export const fetchGeocoding = async (city) => {
   return await fetch(
     `${BASE_URL}geo/1.0/direct?q=${city}&limit=5&appid=${API_KEY}`
   )
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Something went wrong");
+      }
+
+      return res.json();
+    })
     .then((data) => data)
-    .catch((error) => error);
+    .catch((error) => console.log(error));
 };
 
-export const fetchCurrentForecast = async (lat, lon) => {
+export const fetchCurrentForecast = async (cityName) => {
   return await fetch(
-    `${BASE_URL}data/2.5/weather?&units=metric&lat=${lat}&lon=${lon}&appid=${API_KEY}`
+    `${BASE_URL}data/2.5/weather?&units=metric&q=${cityName}&appid=${API_KEY}`
   )
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Cant get the data");
+      }
+
+      return res.json();
+    })
     .then((data) => data)
-    .catch((error) => error);
+    .catch((error) => console.log(error));
 };

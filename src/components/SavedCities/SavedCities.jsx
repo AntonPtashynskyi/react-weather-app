@@ -13,7 +13,7 @@ export const SavedCities = ({ savedLocation, setSavedLocation }) => {
   return (
     <div className="savedCitiesContainer">
       <h2>Saved cities</h2>
-      {savedLocation.length ? (
+      {savedLocation?.length ? (
         <ul className="savedCitiesList">
           {savedLocation.map((location) => (
             <li key={location.id} className="savedCities">
@@ -25,7 +25,7 @@ export const SavedCities = ({ savedLocation, setSavedLocation }) => {
               </span>
               <p className="locationName">{location.name}</p>
               <p>{date}</p>
-              <p className="temperature">{location.main.temp} (st C)</p>
+              <p className="temperature">{location.main.temp} (st °C)</p>
             </li>
           ))}
         </ul>
