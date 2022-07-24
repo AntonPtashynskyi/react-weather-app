@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import toast from "react-hot-toast";
 
 import { useDebounce } from "../../hooks/debounce";
 import { fetchGeocoding } from "../../weatherApi/weatherApi";
+import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import { ResultList } from "../index";
 import "./searchLocation.style.css";
 
@@ -10,12 +11,17 @@ export const SearchLocation = ({ setSavedLocation }) => {
   const [search, setSearch] = useState("");
   const [cities, setCities] = useState([]);
   const [dropdown, setDropdown] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const debouncedValue = useDebounce(search, 300);
+
+  const ref = useRef();
+  useOnClickOutside(ref, () => setDropdown(false));
 
   const handleChange = (e) => {
     const value = e.currentTarget.value;
 
     setSearch(value.toLowerCase());
+    setErrorMessage("");
   };
 
   useEffect(() => {
@@ -30,24 +36,26 @@ export const SearchLocation = ({ setSavedLocation }) => {
         const data = await fetchGeocoding(debouncedValue);
 
         if (!data) {
-          throw new Error("Something went wrong");
+          throw new Error("Something went wrong", { cause: "serverError" });
         }
 
         if (data?.length === 0) {
-          toast.error("We cant find this city", {
-            duration: 1500,
-            position: "top-right",
-            icon: "😥",
-          });
+          throw new Error("We cant find this city");
         }
 
         setDropdown(debouncedValue.length > 1 && data?.length > 0);
         setCities(data);
       } catch (error) {
-        toast(error.message, {
-          duration: 2000,
-          icon: "😟",
-        });
+        setDropdown(false);
+
+        if (error.cause === "serverError") {
+          toast(error.message, {
+            duration: 2000,
+            icon: "😟",
+          });
+        } else {
+          setErrorMessage(error.message);
+        }
       }
     };
 
@@ -56,7 +64,7 @@ export const SearchLocation = ({ setSavedLocation }) => {
 
   return (
     <div className="searchContainer">
-      <div className="inputWrapper">
+      <div className="inputWrapper" ref={ref}>
         <label htmlFor="search">Find weather in your city</label>
         <input
           className="input"
@@ -68,6 +76,7 @@ export const SearchLocation = ({ setSavedLocation }) => {
           onChange={handleChange}
           onFocus={() => setDropdown(true)}
         />
+        {errorMessage && <p className="errorMessage">{errorMessage}</p>}
         {dropdown && (
           <ResultList
             cities={cities}

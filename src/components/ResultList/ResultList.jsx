@@ -36,11 +36,11 @@ export const ResultList = ({
               className="resultItem"
               key={nanoid()}
               onClick={() => handleCityClick(city)}
+              title="click to add"
             >
               <p className="cityName">{city.name}</p>
               {city?.state && <p>({city?.state})</p>}
               <p>{city.country}</p>
-              <span className="hide">Click to add</span>
             </li>
           ))}
         </ul>
